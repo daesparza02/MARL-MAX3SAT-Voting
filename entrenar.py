@@ -4,7 +4,7 @@ import supersuit as ss
 from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import CheckpointCallback
 
-from mi_entonrno_3sat_recompensayobservaciones import Entorno3SAT
+from mi_entorno_3sat_observacion import Entorno3SAT
 
 def entrenar():
     # 1. Configuración de carpetas
@@ -15,13 +15,13 @@ def entrenar():
     os.makedirs(MODEL_DIR, exist_ok=True)
 
     # 2. CONFIGURACIÓN DE TIEMPO (FUERZA BRUTA)
-    NUM_AGENTES = 5
+    NUM_AGENTES = 40
     NUM_VARIABLES = 10
     
     # 3 MILLONES de pasos. 
     # En un PC normal esto son unas 3-4 horas. 
     # Es suficiente para ver resultados muy sólidos.
-    TOTAL_TIMESTEPS = 3_000_000 
+    TOTAL_TIMESTEPS = 10_000_000 
 
     print(f"--- ENTRENAMIENTO BLINDADO (Sin paradas) ---")
     print(f"   > Objetivo: {TOTAL_TIMESTEPS} pasos.")
@@ -55,7 +55,7 @@ def entrenar():
     model.learn(total_timesteps=TOTAL_TIMESTEPS, callback=checkpoint_callback)
 
     # 6. Guardado Final
-    nombre_final = "ppo_3sat_final_v1" # Usamos el mismo nombre para que evaluar.py lo encuentre fácil
+    nombre_final = "ppo_3sat_final_40agentes" # Usamos el mismo nombre para que evaluar.py lo encuentre fácil
     ruta_final = os.path.join(MODEL_DIR, nombre_final)
     model.save(ruta_final)
     
